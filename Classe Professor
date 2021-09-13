@@ -1,0 +1,56 @@
+package br.edu.infnet.Pessoas;
+
+import br.edu.infnet.Exceptions.NomeIncompletoException;
+import br.edu.infnet.Exceptions.SalarioInvalidoException;
+
+
+public class Professor extends Pessoa {
+
+	 private int turma;
+	    private double salario;
+
+	    public Professor(){}
+	    public Professor(String nome, String matricula, int turma, double salario) {
+	        super(nome, matricula);
+	        this.turma = turma;
+	        this.salario = salario;
+	    }
+
+	    public Professor(String nome, int turma, double salario) {
+	        super(nome);
+	        this.turma = turma;
+	        this.salario = salario;
+	    }
+
+	    public int getTurma() {
+	        return turma;
+	    }
+
+	    public void setTurma(int turma) {
+	        if(turma <= 0)
+	           turma = 1;
+	        this.turma = turma;
+	    }
+
+	    public double getSalario() {
+	        return salario;
+	    }
+
+	    public void setSalario(double salario) throws SalarioInvalidoException {
+	        if(salario < 0.0) 
+	            throw new SalarioInvalidoException("O valor do 'salario' está invalido");
+	        this.salario = salario;
+	    }
+
+	    public double definirSalarioFinal() {
+	        return getSalario() * turma;
+	    }
+
+	    @Override
+	    public void impressao() throws NomeIncompletoException {
+	        super.impressao();
+	        System.out.printf("Salario R$: %.2f || Quantidades de turmas: %d%n", getSalario(),getTurma());
+	        System.out.printf("Salario final R$: %.2f%n", definirSalarioFinal());
+	        System.out.printf("------------------------------------");
+	    }
+	}
