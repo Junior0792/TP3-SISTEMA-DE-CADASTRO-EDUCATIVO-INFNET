@@ -1,0 +1,89 @@
+package br.edu.infnet.Pessoas;
+
+import br.edu.infnet.Exceptions.NomeIncompletoException;
+import br.edu.infnet.Exceptions.SalarioInvalidoException;
+
+
+public abstract class Pessoa {
+
+	private String nome;
+    private String sobrenome;
+    private String ultimonome;
+    private String matricula;
+
+    public Pessoa(){}
+    public Pessoa(String nome,  String matricula) {
+        this.nome = nome;
+        this.matricula = matricula;
+    }
+
+    public Pessoa(String nome)
+    {
+        this(nome,"indefinida");
+    }
+
+    public String getNome() throws NomeIncompletoException {
+    	
+
+        if(ultimonome == null || nome == null || sobrenome == null) {
+          
+        	throw new NomeIncompletoException("O nome está incorreto");
+        }
+
+        StringBuilder sb = new StringBuilder();
+        System.out.println("-------------------------------------");
+        sb.append(ultimonome.toUpperCase().charAt(0));
+        sb.append(".");
+        sb.append(",");
+        sb.append(" ");
+        sb.append(nome.toUpperCase());
+        sb.append(" ");
+        sb.append(sobrenome.toLowerCase());
+        sb.append(".");
+        return sb.toString();
+    }
+
+    public void setNome(String nome) {
+
+        int posInicial = nome.indexOf(" ");
+        int posFinal = nome.lastIndexOf(" ");
+        if (posFinal > 0 | posFinal > 0)
+        {
+            this.nome = nome.substring(0,posInicial);
+            this.sobrenome = nome.substring(posInicial,posFinal);
+            this.ultimonome = nome.substring(posFinal).trim();
+
+        }
+
+
+    }
+
+    public void setNomeSplit(String nome)
+    {
+        String[] nomeCompleto = nome.split(" ");
+        this.nome = nomeCompleto[0];
+        this.sobrenome = nomeCompleto[1];
+        this.ultimonome = nomeCompleto[2];
+    }
+
+    public String getMatricula() {
+        return matricula;
+    }
+
+    public void setMatricula(String matricula) {
+
+        if(matricula.length() < 1)
+            matricula ="Sem matricula";
+
+        this.matricula = matricula;
+    }
+
+    public void impressao() throws NomeIncompletoException {
+    	
+        System.out.printf("%s || Matricula: %s%n",getNome(),getMatricula());
+    }
+
+}
+
+
+
