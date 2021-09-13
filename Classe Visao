@@ -1,0 +1,99 @@
+package br.edu.infnet.Visao;
+
+import java.util.Scanner;
+import br.edu.infnet.Pessoas.Executavel;
+
+public class Visao {
+	
+	private static Scanner sc =  new Scanner(System.in);;
+    private static Executavel pessoas = new Executavel();
+
+	public static void main(String[] args) {
+		
+		String opt;
+	    do {
+	        menuPrincipal();
+	        opt = sc.nextLine();
+	        menu(opt);
+	    } while (!opt.equals("4"));
+
+	    }
+
+     public static void menuPrincipal(){
+    	 
+    	 
+    	  System.out.print("\n");
+    	  System.out.println("----------------------------------------------");
+    	  System.out.println("Ben-vindo ao sistema de cadastro educacional");
+    	  System.out.println("----------------------------------------------");
+	      System.out.print("[1] Cadastrar professor(a)\n");
+	      System.out.print("[2] Cadastrar aluno(a)\n");
+	      System.out.print("[3] Consultar situação de um docente/discente.\n");
+	      System.out.print("[4] Sair.\n");
+	      System.out.print("Digite a opção:");
+    	  System.out.print("\n");
+    	  System.out.println("----------------------------------------------");
+
+	    }
+
+	  public static void menu(String opt){
+		  
+		  switch (opt)
+	        
+	        {
+		  case "1":
+			  System.out.println("Opçao numero 1");
+              menuProfessor();
+              
+              break;
+	            	
+	                
+	       case "2":
+	    	   System.out.println("Opçao numero 2");
+	    	   menuAluno();
+	    	   
+	    	   break;
+	                
+	       case "3":
+	    	   System.out.println("Opçao numero 3");
+	           pessoas.consultarSituacao();
+	           break;
+	        case "4":
+	        	System.out.println("Obrigado por usar nosso programa!");
+	            break;
+
+	            default:
+	                System.out.println("Opção invalida");
+	        }
+	    }
+
+	    public static void menuAluno() {
+
+	        System.out.println("Digite o nome do(a) Aluno(a): ");
+	        String nome = sc.nextLine();
+	        System.out.println("Digite a matricula do(a) Aluno(a): ");
+	        String matricula = sc.nextLine();
+	        System.out.println("Digite o nome da turma do(a) aluno(a): ");
+	        String nomeTurma = sc.nextLine();
+	        System.out.println("Digite a nota final do(a) aluno(a): ");
+	        String nota = sc.nextLine();
+	        pessoas.registrar(nome, matricula, nomeTurma, Double.parseDouble(nota));
+	    }
+
+	    public static void menuProfessor() {
+	        System.out.println("Digite o nome do(a) Professor(a): ");
+	        String nome = sc.nextLine();
+	        System.out.println("Digite a matricula do(a) Professor(a): ");
+	        String matricula = sc.nextLine();
+	        System.out.println("Digite a quantidade de turmas do(a) Professor(a): ");
+	        String turmas = sc.nextLine();
+	        System.out.println("Digite o salario do(a) Professor(a) R$: ");
+	        String salario = sc.nextLine();
+	        pessoas.registrar(nome, matricula, Integer.parseInt(turmas),Double.parseDouble(salario));
+
+	    }
+
+
+
+	}
+
