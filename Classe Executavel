@@ -1,0 +1,95 @@
+package br.edu.infnet.Pessoas;
+
+import java.util.Scanner;
+import br.edu.infnet.Exceptions.NomeIncompletoException;
+import br.edu.infnet.Exceptions.NotaInvalidaException;
+import br.edu.infnet.Exceptions.SalarioInvalidoException;
+
+public class Executavel {
+
+	 private final static int LIMIT_PESSOA = 10;
+	 
+	 private static Pessoa[] pessoas = new Pessoa[LIMIT_PESSOA];
+	 
+	 Scanner sc = new Scanner(System. in);
+
+	 private static int qte = 0;
+
+
+	 public void registrar(String nome ,String matricula, String nomeTurma ,double nota )
+	  {
+	      Aluno aluno = new Aluno();
+	      try{
+	            aluno.setNome(nome);
+	            aluno.setMatricula(matricula);
+	            aluno.setNomeTurma(nomeTurma);
+	            aluno.setNota(nota);
+	     }catch ( NotaInvalidaException e)
+	         {
+	         System.out.println(e.getMessage());
+	     }
+	        finally {
+	            System.out.println("cadastro finalizado");
+	        }
+	        insetir(aluno);
+
+	    }
+
+	   public void registrar(String nome ,String matricula, int turmas ,double salario)
+	   {
+		   Professor professor = new Professor();
+	       try{
+	    	   
+	            professor.setNome(nome);
+	            professor.setMatricula(matricula);
+	            professor.setTurma(turmas);
+	            professor.setSalario(salario);
+	            professor.definirSalarioFinal();
+
+	        }catch (   SalarioInvalidoException e)
+	        {
+	            System.out.println(e.getMessage());
+	        }
+	        finally {
+	            System.out.println("cadastro finalizado");
+	        }
+
+	        insetir(professor);
+
+
+	    }
+
+	    public void insetir(Pessoa pessoa)
+	    {
+	        try{
+	            pessoas[qte] = pessoa;
+	            System.out.printf("Registrado com sucesso! %nCodigo de cadastro é: %d",qte);
+	            qte++;
+	            }catch(ArrayIndexOutOfBoundsException e)
+	        {
+	            System.out.println("Limite de cadastros excedido!");
+	        }
+
+	    }
+
+	    public void consultarSituacao(){
+	        try {
+	            System.out.println("Digite o codigo de cadastro");
+	            String codigo = sc.nextLine();
+	            pessoas[Integer.parseInt(codigo)].impressao();
+	            }catch (NomeIncompletoException   e)
+	        {
+	            System.out.println(e.getMessage());
+	        }
+
+	        catch(NullPointerException | ArrayIndexOutOfBoundsException e)
+	        {
+	            System.out.println("Cadastro nao encontrado");
+	        }
+	    }
+
+	}
+
+
+
+
