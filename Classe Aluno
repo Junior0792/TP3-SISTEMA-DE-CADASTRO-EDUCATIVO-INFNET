@@ -1,0 +1,73 @@
+package br.edu.infnet.Pessoas;
+
+import br.edu.infnet.Exceptions.NomeIncompletoException;
+import br.edu.infnet.Exceptions.NotaInvalidaException;
+
+import javax.management.openmbean.InvalidOpenTypeException;
+
+public class Aluno extends Pessoa{
+	
+	private double nota;
+    private String nomeTurma;
+
+    public Aluno(){}
+    public Aluno(String nome,String matricula, double nota, String nomeTurma) {
+        super(nome,matricula);
+        this.nota = nota;
+        this.nomeTurma = nomeTurma;
+    }
+
+    public Aluno(String nome, String matricula)
+    {
+        this(nome,matricula, 0.0, "Indefinida");
+    }
+
+    public Aluno(String nome)
+    {
+        this(nome,"Indefinida", 0.0, "Indefinida");
+    }
+
+
+    public double getNota() {
+        return nota;
+    }
+
+    public void setNota(double nota) throws NotaInvalidaException {
+        if(nota < 0 || nota >  10)
+            throw new NotaInvalidaException("O  valor da 'nota' está incorreto!");
+        this.nota = nota;
+    }
+
+    public String getNomeTurma() {
+        return nomeTurma;
+    }
+
+    public void setNomeTurma(String nomeTurma) {
+        if(nomeTurma.length() < 1)
+            nomeTurma = "sem turma";
+
+        this.nomeTurma = nomeTurma;
+    }
+
+    public String situacao(double nota)
+    {
+        if(nota > 7)
+            return "Parabéns você está Aprovado(a)";
+        else if(nota <5)
+            return "Lamentavelmente você está Reprovado";
+        else
+            return "Ainda tem chance da Prova final";
+    }
+
+    @Override
+    public void impressao() throws NomeIncompletoException {
+        super.impressao();
+        double nota = getNota();
+        String situacao = situacao(nota);
+        System.out.printf("Turma: %s%n", getNomeTurma());
+        System.out.printf("Nota: %.2f || Situação: %s", nota,situacao);
+
+    }
+}
+
+
