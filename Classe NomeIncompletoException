@@ -1,0 +1,10 @@
+package br.edu.infnet.Exceptions;
+
+public class NomeIncompletoException extends Exception{
+
+	    public NomeIncompletoException(String message){
+	    	
+	        super(message);
+	    }
+}
+
